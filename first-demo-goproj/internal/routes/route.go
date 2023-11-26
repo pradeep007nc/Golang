@@ -9,7 +9,7 @@ func NewRouter() http.Handler {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", indexHandler)
-	mux.HandleFunc("/api/", apiHandler)
+	mux.HandleFunc("/api", apiHandler)
 
 	return mux
 }
