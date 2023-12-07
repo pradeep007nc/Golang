@@ -1,6 +1,9 @@
 package twoSum
 
-import "math/rand"
+import (
+	"math/rand"
+	"sync"
+)
 
 func TwoSum(nums []int, target int) []int {
 	ans := make([]int, 2)
@@ -29,11 +32,27 @@ func GenerateRandom(arrSize int, limit int) []int {
 	return arr
 }
 
-func TwoSumTime(times int, arrSize int) {
-	for i := 0; i < times; i++ {
-		randomArr := GenerateRandom(arrSize, i)
-		target := rand.Intn(i + 1)
+// func TwoSumTime(times int, arrSize int) {
+// 	for i := 0; i < times; i++ {
+// 		randomArr := GenerateRandom(arrSize, i)
+// 		target := rand.Intn(i + 1)
 
-		_ = TwoSum(randomArr, target)
+// 		_ = TwoSum(randomArr, target)
+// 	}
+// }
+
+func TwoSumTime(times int, arrSize int) {
+	var wg sync.WaitGroup
+
+	for i := 0; i < times; i++ {
+		wg.Add(1)
+		go func(i int) {
+			defer wg.Done()
+			randomArr := GenerateRandom(arrSize, i)
+			target := rand.Intn(i + 1)
+			_ = TwoSum(randomArr, target)
+		}(i)
 	}
+
+	wg.Wait()
 }

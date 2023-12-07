@@ -46,7 +46,7 @@ public class TimeTaken {
         System.out.println(java.util.Arrays.toString(result));
 
         long startTime = System.currentTimeMillis();
-        twoSumTime(100000, 100000);
+        twoSumTime(10000, 10000);
         long endTime = System.currentTimeMillis();
 
         long total = endTime - startTime;

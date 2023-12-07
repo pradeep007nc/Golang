@@ -1,10 +1,11 @@
 package main
 
 import (
-	"demo2/leetcode"
 	"fmt"
 	"reflect"
 	"time"
+
+	"leetcode/twoSum"
 )
 
 // type car struct {
@@ -59,7 +60,7 @@ func main() {
 
 	startTime := time.Now()
 
-	twoSum.TwoSumTime(10000, 10000)
+	twoSum.TwoSumTime(100000, 10000)
 
 	endTime := time.Now()
 
@@ -67,4 +68,8 @@ func main() {
 
 	fmt.Println(reflect.TypeOf(total))
 	fmt.Println(total)
+
+	i := rune(32)
+	fmt.Printf("%+v\n", i)
+
 }
