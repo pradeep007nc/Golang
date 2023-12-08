@@ -77,3 +77,25 @@ func GroupAnagram3(strs *[]string) [][]string {
 
 	return result
 }
+
+func GroupAnagram4(strs *[]string) [][]string {
+	freqs := make(map[[26]byte][]string, len(*strs))
+
+	for _, arr_values := range *strs {
+		key := [26]byte{}
+
+		for _, val := range arr_values {
+			key[val-'a']++
+		}
+
+		freqs[key] = append(freqs[key], arr_values)
+	}
+
+	result := make([][]string, 0, len(freqs))
+
+	for _, val := range freqs {
+		result = append(result, val)
+	}
+
+	return result
+}

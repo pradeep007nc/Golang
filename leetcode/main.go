@@ -21,6 +21,12 @@ func main() {
 
 	// problem 3
 	// group anagrams
-	data := []string{"eat", "tea", "tan", "ate", "nat", "bat"}
-	fmt.Println(array_and_hash.GroupAnagrams(&data))
+	// data := []string{"eat", "tea", "tan", "ate", "nat", "bat"}
+	// fmt.Println(array_and_hash.GroupAnagram4(&data))
+
+	// problem 4
+	//Top k freqent elemnets
+	nums := []int{1, 1, 2, 2, 3, 4}
+	k := 2
+	fmt.Println(array_and_hash.TopKFreqentElements(nums, k))
 }
