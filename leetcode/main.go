@@ -26,7 +26,12 @@ func main() {
 
 	// problem 4
 	//Top k freqent elemnets
-	nums := []int{1, 1, 2, 2, 3, 4}
-	k := 2
-	fmt.Println(array_and_hash.TopKFreqentElements(nums, k))
+	// nums := []int{1, 1, 2, 2, 3, 4}
+	// k := 2
+	// fmt.Println(array_and_hash.TopKFreqentElements(nums, k))
+
+	// problem 5
+	//product of array self
+	nums := []int{1, 2, 3, 4}
+	fmt.Println(array_and_hash.ProductExceptSelf(nums))
 }
