@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"time"
 
 	"dev.pradeep/packages/models"
@@ -10,7 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var jwtKey = []byte("secret_key")
+var jwtKey = []byte("mama mia")
 
 // PATH: go-auth/controllers/auth.go
 
@@ -39,7 +40,9 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	expirationTime := time.Now().Add(5 * time.Minute)
+	loc, _ := time.LoadLocation("Asia/Kolkata")
+	now := time.Now().In(loc)
+	expirationTime := now.Add(5 * time.Minute)
 
 	claims := &models.Claims{
 		Role: existingUser.Role,
@@ -134,11 +137,12 @@ func Premium(c *gin.Context) {
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.JSON(401, gin.H{"error": "unauthorized", "error message": err, "claims": claims})
 		return
 	}
 
 	if claims.Role != "admin" {
+		fmt.Println("im in not admin")
 		c.JSON(401, gin.H{"error": "unauthorized"})
 		return
 	}
