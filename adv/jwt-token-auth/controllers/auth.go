@@ -61,7 +61,13 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	c.SetCookie("token", tokenString, int(expirationTime.Unix()), "/", "localhost", false, true)
+	ipaddress, err := utils.GetIpAddress()
+	if err != nil {
+		fmt.Println("couldnt fetch ip address: ", err)
+		return
+	}
+
+	c.SetCookie("token", tokenString, int(expirationTime.Unix()), "/", ipaddress, false, true)
 	c.JSON(200, gin.H{"success": "user logged in"})
 }
 
@@ -111,7 +117,7 @@ func Home(c *gin.Context) {
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.JSON(401, gin.H{"error": "unauthorized", "claims": err})
 		return
 	}
 
@@ -142,7 +148,6 @@ func Premium(c *gin.Context) {
 	}
 
 	if claims.Role != "admin" {
-		fmt.Println("im in not admin")
 		c.JSON(401, gin.H{"error": "unauthorized"})
 		return
 	}
@@ -153,6 +158,11 @@ func Premium(c *gin.Context) {
 // PATH: go-auth/controllers/auth.go
 
 func Logout(c *gin.Context) {
-	c.SetCookie("token", "", -1, "/", "localhost", false, true)
+	ipaddress, err := utils.GetIpAddress()
+	if err != nil {
+		fmt.Println("couldnt fetch ip address: ", err)
+		return
+	}
+	c.SetCookie("token", "", -1, "/", ipaddress, false, true)
 	c.JSON(200, gin.H{"success": "user logged out"})
 }
